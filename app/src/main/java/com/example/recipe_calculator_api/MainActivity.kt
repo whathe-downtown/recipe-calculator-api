@@ -4,47 +4,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipe_calculator_api.data.User
+import com.example.recipe_calculator_api.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
-class MainActivity : AppCompatActivity() , RecyclerviewInterface{
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private  lateinit var myAdapter: MyAdapter
 
+    var userList = ArrayList<User>()
     val TAG: String = "로그"
 
-    var modelList = ArrayList<Model>()
 
-    private  lateinit var  recyclerAdapter: RecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        Log.d(TAG, "onCreate: MainaActity - called")
-
-        Log.d(TAG, "onCreate: this.model.size : ${this.modelList.size}")
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         for(i in 1..10){
-            var model = Model(name = "유청규 $i", profileImage = "https://yt3.ggpht.com/oLi5jJ2AKs_aYpR9UpUpu052M84WIE2j9cpnNb1VnpBHZMHVrTRPwrUIncJGu6--PVR-x-22=s48-c-k-c0x00ffffff-no-rj")
-            this.modelList.add(model)
+            var user = User(name = "유청규 $i", email = "dbcjdrb$i@naver.com")
+            this.userList.add(user)
         }
-        Log.d(TAG, "onCreate: this.model.size : ${this.modelList.size}")
-        // 어답터 인스턴스 생성
-        recyclerAdapter = RecyclerAdapter(this)
-        recyclerAdapter.submitList(this.modelList)
-
-        my_recycler_view.apply{
-            // 리사이클러뷰 설정
-            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-
-            adapter = recyclerAdapter
+        binding.myRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL,false)
+            adapter = myAdapter
         }
     }
-
-    override fun onItemClicked() {
-        Log.d(TAG, "onItemClicked:- MyViewOlhder -called() ")
-
-    }
-
 }
