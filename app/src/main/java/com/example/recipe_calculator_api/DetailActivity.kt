@@ -1,22 +1,23 @@
 package com.example.recipe_calculator_api
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.recipe_calculator_api.databinding.ActivityDeatilBinding
+
+import com.example.recipe_calculator_api.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDeatilBinding
+    private lateinit var binding: ActivityDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityDeatilBinding.inflate(layoutInflater)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val name = intent.getStringExtra("name")
-        val email = intent.getStringExtra("email")
+        val secondIntent =  intent
 
-        binding.textView.text = name
-        binding.textView2.text = email
+        binding.textView.text = secondIntent.getStringExtra("name")
+        binding.textView2.text = secondIntent.getStringExtra("title")
     }
 }
